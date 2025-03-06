@@ -23,7 +23,7 @@ const bandNames = [
     },
     {name: 'High Fructose Corn Syrup',
     members: 'Will Haderlie, Christian Christensen', 
-    formed: 2019,
+    formed: 2020,
     },
   ] 
 
