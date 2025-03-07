@@ -1,64 +1,52 @@
-import './App.css'
+import './App.css';
+import { useEffect, useState } from 'react';
+import basketballTeams from './CollegeBasketballTeams.json'; // Import JSON directly
 
-
-
+// Define the Team type
+interface Team {
+  school: string;
+  name: string;
+  city: string;
+  state: string;
+}
 
 function Welcome() {
-  return (<h1>Criminally Underrated Bands</h1>)
+  return (<h1>College Basketball Teams</h1>);
 }
 
-const bandNames = [
-    {
-    name: 'Dire Straits',
-    members: 'Mark Knopfler, David Knopfler, John Illsley, Pick Withers',
-    formed: 1977
-    },
-    {name: 'R.E.M',
-    members: 'Michael Stipe, Peter Buck, Mike Mills, Bill Berry', 
-    formed: 1980
-    },
-    {name: 'Collective Soul',
-    members: 'Ed Roland, Dean Roland, David Neal, Ross Childress, Shane Evans', 
-    formed: 1992,
-    },
-    {name: 'High Fructose Corn Syrup',
-    members: 'Will Haderlie, Christian Christensen', 
-    formed: 2020,
-    },
-  ] 
-
-
-function Band({name, members, formed}: {name: string; members: string; formed: number}) {
+function TeamCard({ school, name, city, state }: Team) {
   return (
-    <>
-      <img />
-      <h2>{name}:</h2>
-      <h3>Original Members: {members}</h3>
-      <h3>Formed: {formed}</h3>
-    </>
-  )
+    <div className="team-card">
+      <h2>{school}</h2>
+      <h3>Mascot: {name}</h3>
+      <p>Location: {city}, {state}</p>
+    </div>
+  );
 }
 
-function BandList() {
+function TeamList() {
+  const [teams, setTeams] = useState<Team[]>([]);
+
+  useEffect(() => {
+    setTeams(basketballTeams.teams); // Use imported JSON directly
+  }, []);
+
   return (
-    <>
-      {
-        bandNames.map((singleBand) => (
-          <Band {...singleBand} />
-        ))
-      }
-    </>
-  )
+    <div className="team-list">
+      {teams.map((team, index) => (
+        <TeamCard key={index} {...team} />
+      ))}
+    </div>
+  );
 }
 
 function App() {
-
-  return(
-    <>
-      <Welcome/>
-      <BandList/>
-    </>
-  )
+  return (
+    <div className="App">
+      <Welcome />
+      <TeamList />
+    </div>
+  );
 }
 
 export default App;
